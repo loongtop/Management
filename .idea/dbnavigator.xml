@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
-    <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <record-view-column-sorting-type value="ALPHABETICAL" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DataExportManager">
@@ -27,7 +27,7 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="8bd68773-f7a9-47be-a806-b1f1db1e0ed2">
+    <connection id="0e2443a6-9c11-4123-981a-e8cfec1793c8">
       <console name="Connection" type="STANDARD" schema="main" session="Main" />
     </connection>
   </component>
@@ -35,10 +35,10 @@
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="8bd68773-f7a9-47be-a806-b1f1db1e0ed2" />
+    <connection id="0e2443a6-9c11-4123-981a-e8cfec1793c8" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="8bd68773-f7a9-47be-a806-b1f1db1e0ed2" dataset="main.web_employee" active-filter-id="" />
+    <filter-actions connection-id="0e2443a6-9c11-4123-981a-e8cfec1793c8" dataset="main.web_school" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -69,7 +69,7 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="8bd68773-f7a9-47be-a806-b1f1db1e0ed2" active="true" signed="false">
+      <connection id="0e2443a6-9c11-4123-981a-e8cfec1793c8" active="true" signed="false">
         <database>
           <name value="Connection" />
           <description value="" />

@@ -41,9 +41,11 @@ class Course(models.Model):
 class Student(models.Model):
     nickname = models.CharField(verbose_name='Name', max_length=32)
     phone = models.CharField(verbose_name='Phone', max_length=32)
+    emergency_contract = models.CharField(verbose_name='Emergency contact number', max_length=32)
+    class_list = models.ManyToManyField(verbose_name="Registered class", to='ClassList', blank=True)
     GENDER_CHOICES = ((1, 'male'), (2, 'female'))
     gender = models.SmallIntegerField(verbose_name='Gender', choices=GENDER_CHOICES, default=1)
-    department = models.ForeignKey(verbose_name='department', to='Department', on_delete=models.DO_NOTHING)
+    score = models.IntegerField(verbose_name='Point', default=100)
 
 
 class Customer(models.Model):
@@ -90,7 +92,7 @@ class School(models.Model):
         return self.title
 
 
-class ClassTable(models.Model):
+class ClassList(models.Model):
     """
     the table of the ClassTable:
 
