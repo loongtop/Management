@@ -49,10 +49,12 @@ class Handler(object):
 
         return DefaultModelform
 
-    def __get_meta(self, model: Model = None):
+    def _get_meta(self, model: Model = None):
         """get meta data"""
+        meta = self._model._meta
         if model:
-            return self._model._meta
+            meta = model._meta
+        return meta
 
     def _wrapper(self, function):
         @functools.wraps(function)
@@ -65,8 +67,8 @@ class Handler(object):
         """
         this methods is used to get_app_model_name
         """
-        app_label = self.__get_meta(self._model).app_label
-        model_name = self.__get_meta(self._model).model_name
+        app_label = self._get_meta(self._model).app_label
+        model_name = self._get_meta(self._model).model_name
 
         if self._prev:
             return f'{app_label}_{model_name}_{self._prev}_{operation_name}'

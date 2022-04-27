@@ -3,7 +3,7 @@ from crud import (get_site, get_handler,
 
 
 class SchoolConfig(Read):
-    pass
+    display_list = ['title']
 
 
 handler = get_handler(read=SchoolConfig)

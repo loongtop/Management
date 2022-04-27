@@ -32,7 +32,7 @@ class Course(models.Model):
     the table of the Course
         Chinese, English, French, Russian, Japanese, Korean, Spanish, German
     """
-    name = models.CharField(verbose_name='Name of course', max_length=32)
+    name = models.CharField(verbose_name='Course', max_length=32)
 
     def __str__(self):
         return self.name
@@ -86,7 +86,7 @@ class School(models.Model):
         Haidian District, Shunyi District, Tongzhou District, Daxing District, Fangshan District,
         Mentougou District, Changping District, Pinggu District, Miyun District, Huairou District, Yanqing District
     """
-    title = models.CharField(verbose_name='School of Area', max_length=32)
+    title = models.CharField(verbose_name='Campus', max_length=32)
 
     def __str__(self):
         return self.title

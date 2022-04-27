@@ -3,7 +3,8 @@ from crud import (get_site, get_handler,
 
 
 class CourseConfig(Read):
-    pass
+    display_list = ['name']
+    # pass
 
 
 handler = get_handler(read=CourseConfig)
