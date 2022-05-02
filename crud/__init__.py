@@ -1,9 +1,9 @@
 from .site import (CRUDSite,
                    Read, Create, Delete, Detail, Update,
-                   model_handler_tuple, name_tuple)
+                   model_handler_tuple, name_tuple,
+                   fun)
 
-from .site.utils.stylemodelform import StyleModelForm
-
+from crud.site.crud.help.stylemodelform import StyleModelForm
 
 
 def get_site():

@@ -14,16 +14,18 @@ class Delete(Handler):
     def delete(self, request: WSGIRequest, pk, *args, **kwargs):
         """Delete un element"""
 
-        if delete_obj := self._get_objects(pk):
-            HttpResponse('The data was already deleted!')
+        if not (delete_obj := self._get_objects(pk).first()):
+            message = 'The data was already deleted!'
+            return render(request, 'crud/wrong.html', {'message': message})
 
         current_url = self.reverse_list_url(*args, **kwargs)
 
         if request.method == 'GET':
             return render(request, self.delete_template or 'crud/delete.html', {'cancel': current_url})
 
-        response = delete_obj.delete()
-        return response or redirect(current_url)
+        # response = delete_obj.delete()
+        delete_obj.delete()
+        return redirect(current_url)
 
     @property
     def _get_urls(self):

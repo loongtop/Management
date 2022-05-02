@@ -1,9 +1,10 @@
 """The base class for deriving """
-from django.db.models import Model
 import functools
+from django.db.models import Model
+from django.urls import reverse
 
-from crud.site.utils import name_tuple
-from crud.site.utils.stylemodelform import StyleModelForm
+from .help.namedtuple import name_tuple
+from .help.stylemodelform import StyleModelForm
 
 
 class Handler(object):
@@ -16,7 +17,6 @@ class Handler(object):
         self._model = model
         self._prev = prev
         self.request = None
-
         self.modelform = None
 
     @classmethod
@@ -29,13 +29,20 @@ class Handler(object):
         form.save()
 
     def _get_objects(self, pk=None):
+        """retrieve the object in the database according to the PK key value"""
         objects = self._model.objects
         if not pk:
             return objects.all()
         return objects.filter(pk=pk)
 
     def reverse_list_url(self, *args, **kwargs):
-        pass
+        """generate a return address for the operation """
+        reverse_name = self.get_reverse_name('read')
+        base_url = reverse(reverse_name, args=args, kwargs=kwargs)
+
+        if param := self.request.GET.get('_filter'):
+            return f'{base_url}?{param}'
+        return base_url
 
     @property
     def _get_modelform(self):
@@ -74,7 +81,7 @@ class Handler(object):
             return f'{app_label}_{model_name}_{self._prev}_{operation_name}'
         return f'{app_label}_{model_name}_{operation_name}'
 
-    def _get_reverse_name(self, operation_name):
+    def get_reverse_name(self, operation_name):
         """
         This methods is used for get_reverse_name
         """

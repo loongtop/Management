@@ -10,15 +10,17 @@
 			<tr>
 				<th>Number</th>
 				{% for name in display.head %}
-				<td>{{ name }}</td>
+					<td>{{ name }}</td>
 				{% endfor %}
 			</tr>
 			</thead>
 			<tbody>
-			{% for item in display.data %}
+			{% for object in display.data %}
 			<tr>
 				<td>{{ forloop.counter }}</td>
-				<td> {{ item }}</td>
+				{% for data in object %}
+					<td> {{ data }}</td>
+				{% endfor %}
 			</tr>
 			{% endfor %}
 			</tbody>

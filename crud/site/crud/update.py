@@ -17,8 +17,9 @@ class Update(Handler):
         """
         update an element
         """
-        if update_obj := self._get_objects(pk):
-            return HttpResponse('The data does not exist, please re select!')
+        if not (update_obj := self._get_objects(pk).first()):
+            message = 'The data does not exist, please re select!'
+            return render(request, 'crud/wrong.html', {'message': message})
 
         modelform = self._get_modelform
         if request.method == "GET":

@@ -12,14 +12,16 @@ class Detail(Handler):
 
     def detail(self, request: WSGIRequest, pk, *args, **kwargs):
         """show the detail of the selected element"""
-        if detail_obj := self._get_objects(pk=pk):
-            return HttpResponse('The data does not exist, please re select!')
+
+        if not (delete_obj := self._get_objects(pk).first()):
+            message = 'The data does not exist, please re select!'
+            return render(request, 'crud/wrong.html', {'message': message})
 
         current_url = self.reverse_list_url(*args, **kwargs)
 
         modelform = self._get_modelform
         if request.method == 'GET':
-            form = modelform(instance=detail_obj)
+            form = modelform
             return render(request, 'crud/detail.html', {'form': form})
 
         return redirect(current_url)

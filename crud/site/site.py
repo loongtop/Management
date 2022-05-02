@@ -2,7 +2,7 @@
 
 from django.urls import re_path
 from .crud.handler import Handler
-from .utils.namedtuple import name_tuple, model_handler_tuple
+from crud.site.crud.help.namedtuple import name_tuple
 
 
 class Site(object):

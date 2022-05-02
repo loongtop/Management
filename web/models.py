@@ -32,7 +32,7 @@ class Course(models.Model):
     the table of the Course
         Chinese, English, French, Russian, Japanese, Korean, Spanish, German
     """
-    name = models.CharField(verbose_name='Course', max_length=32)
+    name = models.CharField(verbose_name='COURSE', max_length=32)
 
     def __str__(self):
         return self.name

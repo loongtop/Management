@@ -25,7 +25,7 @@ class Create(Handler):
         # POST request
         form = modelform(data=request.POST)
         if form.is_valid():
-            response = self.save(request, form)
+            response = Handler.save(form)
             return response or redirect(self.reverse_list_url(*args, **kwargs))
         return render(request, self.create_template or 'crud/change.html', {'form': form})
 
