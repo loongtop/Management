@@ -1,4 +1,5 @@
 """Model for create Urls"""
+import itertools
 
 from django.urls import re_path
 from .crud.handler import Handler
@@ -59,7 +60,7 @@ class CRUDSite(Site):
 
         for operation in handler.values():
             operator: Handler = operation(model, self.name, pre)
-            urlpatterns.append(operator.urls)
+            urlpatterns.extend(operator.urls)
 
         return urlpatterns
 

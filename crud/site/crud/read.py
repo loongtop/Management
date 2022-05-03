@@ -5,12 +5,12 @@ from types import FunctionType
 from django.urls import re_path
 from django.shortcuts import render
 from django.core.handlers.wsgi import WSGIRequest
-from django.utils.safestring import mark_safe
 from django.db.models import Q
 
 from .handler import Handler
 from crud.site.utils.pagination import Pagination
-from crud.site.crud.help.function import fun
+from .help.function import func
+from crud.site.utils.mark_safe import mark_safe
 
 from collections import namedtuple
 display = namedtuple('help', 'head, data, btn, pager, search_list, search_value, action_dict, search_group_row_list')
@@ -27,7 +27,7 @@ class Read(Handler):
     action_list = []
     search_list = []
     search_group = []
-    per_page_count = 10
+    per_page_count = 4
     has_create_btn = True
 
     def read(self, request: WSGIRequest, *args, **kwargs):
@@ -48,18 +48,18 @@ class Read(Handler):
 
         # search list
         conn = Q(_connector='OR')
-        search_list = self.search_list
+        search_list = self.get_search_list
         if search_value := request.GET.get('q', ''):
             for item in search_list:
                 conn.children.append((item, search_value))
 
-        # order list
+        # order list and search_group
         order = self.get_order_list
         search_group_condition = self.get_search_group_condition(request)
         objs = self._get_objects().filter(conn).filter(**search_group_condition).order_by(*order)
 
         # create button
-        btn = fun.create(self, *args, **kwargs)
+        btn = func.create(self, *args, **kwargs)
 
         # pager
         count = objs.count()
@@ -80,12 +80,12 @@ class Read(Handler):
         # head_list and data_list
         head, data = self.get_head_list, self.get_data_list(objects_pager)
 
-        # combined search
+        # combined search ['gender', 'depart' or .....]
         search_group_row_list = []
-        # ['gender', 'depart' or .....]
+
         search_group = self.get_search_group
         for option_object in search_group:
-            row = option_object.get_queryset_or_tuple(self.model_class, request, *args, **kwargs)
+            row = option_object.get_queryset_or_tuple(self._model, request, *args, **kwargs)
             search_group_row_list.append(row)
 
         display_front = display(head, data, btn, pager, search_list, search_value, action_dict, search_group_row_list)
@@ -95,22 +95,22 @@ class Read(Handler):
     @property
     def get_display_list(self):
         """get display list"""
-        lst = []
         if not self.display_list:
             field0 = [self._get_meta().fields[0].name]
-            return itertools.chain(lst, field0)
-        return itertools.chain(lst, self.display_list)
+            return itertools.chain(field0, [func.checkbox])
+        return itertools.chain(self.display_list, [func.checkbox])
 
     @property
     def get_head_list(self):
         """get head list"""
-        for name_fun in self.get_display_list:
-            if not isinstance(name_fun, FunctionType):
-                verbose_name = self._get_meta().get_field(name_fun).verbose_name
+        for name_or_func in self.get_display_list:
+            if not isinstance(name_or_func, FunctionType):
+                verbose_name = self._get_meta().get_field(name_or_func).verbose_name
             else:
-                if name_fun.__name__ == 'detail':
+                if name_or_func.__name__ == 'detail':
                     continue
-                verbose_name = name_fun(is_header=True)
+                verbose_name = name_or_func(is_header=True)
+
             yield verbose_name
 
     def get_data_list(self, objects_pager):
@@ -132,7 +132,7 @@ class Read(Handler):
 
                 # make the data(name of title) which next to detail a hyperlink
                 if link_str := detail_link_str.get('is_detail'):
-                    data = mark_safe(link_str.replace('replace_place', data))
+                    data = mark_safe(link_str, data, 'name')
                     detail_link_str.clear()
 
                 lst.append(data)
@@ -156,8 +156,9 @@ class Read(Handler):
 
     @property
     def get_search_list(self):
-        """get action list"""
-        return self.search_list
+        """get search list"""
+        search_lst = [f'{items}__contains' for items in self.search_list]
+        return search_lst
 
     @property
     def get_search_group(self):

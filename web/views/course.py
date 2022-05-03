@@ -1,13 +1,13 @@
 from crud import (get_site, get_handler,
                   Create, Read, Update, Delete, Detail,
-                  fun)
+                  func)
 
 
-class CourseConfig(Read):
-    display_list = [fun.detail, 'name', fun.update_delete, fun.checkbox]
+class CourseHandlerCFG(Read):
+    display_list = [func.detail, 'name']
     # pass
 
 
-handler = get_handler(read=CourseConfig)
+handler = get_handler(read=CourseHandlerCFG)
 
 

@@ -1,6 +1,41 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="luffy-container">
+	<div>
+		{% if display.search_group_row_list %}
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<i class="fa fa-filter" aria-hidden="true"></i> Quick Filter
+			</div>
+			<div class="panel-body">
+				<div class="search-group">
+					{% for row in display.search_group_row_list %}
+					<div class="row">
+						{% for obj in row %}
+						{{ obj|safe }}
+						{% endfor %}
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		{% endif %}
+
+		{% if display.search_list %}
+		<div style="float: right;margin: 5px 0;">
+			<form method="GET" class="form-inline">
+				<div class="form-group">
+					<input class="form-control" type="text" name="q" value="{{ display.search_value }}"
+					       placeholder="keyword search">
+					<button class="btn btn-primary" type="submit">
+						<i class="fa fa-search" aria-hidden="true"></i>
+					</button>
+				</div>
+			</form>
+		</div>
+		{% endif %}
+	</div>
+
 	<form>
 		<table class="table table-bordered">
 			{% if display.btn %}
@@ -10,7 +45,7 @@
 			<tr>
 				<th>Number</th>
 				{% for name in display.head %}
-					<td>{{ name }}</td>
+				<td>{{ name }}</td>
 				{% endfor %}
 			</tr>
 			</thead>
@@ -19,7 +54,7 @@
 			<tr>
 				<td>{{ forloop.counter }}</td>
 				{% for data in object %}
-					<td> {{ data }}</td>
+				<td> {{ data }}</td>
 				{% endfor %}
 			</tr>
 			{% endfor %}

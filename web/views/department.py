@@ -1,11 +1,12 @@
 from crud import (get_site, get_handler,
-                  Create, Read, Update, Delete, Detail)
+                  Create, Read, Update, Delete, Detail,
+                  func)
 
 
-class DepartmentConfig(Read):
-    pass
+class DepartmentCFG(Read):
+    display_list = [func.detail, 'title', func.update_delete]
 
 
-handler = get_handler(read=DepartmentConfig)
+handler = get_handler(read=DepartmentCFG)
 
 

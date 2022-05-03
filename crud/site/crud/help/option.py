@@ -1,17 +1,23 @@
+from django.db.models import ForeignKey, ManyToManyField
+
+from .searchGroupRow import SearchGroupRow
+
+
 class Option(object):
     def __init__(self, field, is_multi=False, db_condition=None, text_func=None, value_func=None):
         """
-        :param field: 组合搜索关联的字段
-        :param is_multi: 是否支持多选
-        :param db_condition: 数据库关联查询时的条件
-        :param text_func: 此函数用于显示组合搜索按钮页面文本
-        :param value_func: 此函数用于显示组合搜索按钮值
+        :param field: the field associated with the combined search
+        :param is_multi: Whether to support multiple selection
+        :param db_condition: the condition of database association query
+        :param text_func: This function is used to display the combined search button page text
+        :param value_func: This function is used to display the combined search button value
         """
         self.field = field
         self.is_multi = is_multi
-        if not db_condition:
-            db_condition = {}
-        self.db_condition = db_condition
+        # if not db_condition:
+        #     db_condition = {}
+        # self.db_condition = db_condition
+        self.db_condition = db_condition if db_condition else {}
         self.text_func = text_func
         self.value_func = value_func
 
@@ -20,18 +26,18 @@ class Option(object):
     def get_db_condition(self, request, *args, **kwargs):
         return self.db_condition
 
-    def get_queryset_or_tuple(self, model_class, request, *args, **kwargs):
+    def get_queryset_or_tuple(self, model, request, *args, **kwargs):
         """
         Get the data associated with the database according to the field
         :return:
         """
-        field_object = self._get_meta().get_field(self.field)
+        field_object = model._meta.get_field(self.field)
         title = field_object.verbose_name
         # Get relevant data
         if isinstance(field_object, ForeignKey) or isinstance(field_object, ManyToManyField):
             # FK and M2M should get the data in their associated tables: QuerySet
             db_condition = self.get_db_condition(request, *args, **kwargs)
-            return SearchGroupRow(title, field_object.rel.model.objects.filter(**db_condition), self, request.GET)
+            return SearchGroupRow(title, field_object.remote_field.model.objects.filter(**db_condition), self, request.GET)
         else:
             # Get data in choice: tuple
             self.is_choice = True
@@ -39,7 +45,6 @@ class Option(object):
 
     def get_text(self, field_object):
         """
-        获取文本函数
         :param field_object:
         :return:
         """
@@ -52,6 +57,10 @@ class Option(object):
         return str(field_object)
 
     def get_value(self, field_object):
+        """
+        :param field_object:
+        :return:
+        """
         if self.value_func:
             return self.value_func(field_object)
 

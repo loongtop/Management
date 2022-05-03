@@ -5,4 +5,5 @@ from .crud.detail import Detail
 from .crud.read import Read
 from .crud.create import Create
 from crud.site.crud.help.namedtuple import name_tuple, model_handler_tuple
-from crud.site.crud.help.function import fun
+from crud.site.crud.help.function import func
+from .crud.help.stylemodelform import StyleModelForm

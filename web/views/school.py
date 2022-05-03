@@ -1,10 +1,10 @@
 from crud import (get_site, get_handler,
                   Create, Read, Update, Delete, Detail,
-                  fun)
+                  func)
 
 
 class SchoolConfig(Read):
-    display_list = [fun.detail, 'title', fun.update, fun.delete, fun.checkbox]
+    display_list = [func.detail, 'title', func.update_delete, func.checkbox]
 
     # pass
 

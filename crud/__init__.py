@@ -1,7 +1,8 @@
 from .site import (CRUDSite,
                    Read, Create, Delete, Detail, Update,
                    model_handler_tuple, name_tuple,
-                   fun)
+                   )
+from .site.crud.help.function import func
 
 from crud.site.crud.help.stylemodelform import StyleModelForm
 

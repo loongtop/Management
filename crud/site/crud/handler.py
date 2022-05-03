@@ -1,7 +1,10 @@
 """The base class for deriving """
 import functools
+import itertools
+
 from django.db.models import Model
 from django.urls import reverse
+from django.shortcuts import render,redirect
 
 from .help.namedtuple import name_tuple
 from .help.stylemodelform import StyleModelForm
@@ -87,6 +90,11 @@ class Handler(object):
         """
         return f'{self.name.namespace}:{self._get_full_name(operation_name)}'
 
+    def is_obj_exists(self, pk, message='The data does not exist, please re select!'):
+        if not (obj := self._get_objects(pk).first()):
+            return render(self.request, 'crud/wrong.html', {'message': message})
+        return obj
+
     @property
     def _get_urls(self):
         """
@@ -95,8 +103,15 @@ class Handler(object):
         raise NotImplementedError('you must Implement this method!')
 
     @property
+    def extra_urls(self):
+        return []
+
+    @property
     def urls(self):
         """
         the interface that give urls
         """
-        return self._get_urls
+        lst = [self._get_urls]
+        lst.extend(self.extra_urls)
+        return lst
+
