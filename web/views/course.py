@@ -8,6 +8,4 @@ class CourseHandlerCFG(Retrieve):
     # pass
 
 
-handler = get_handler(read=CourseHandlerCFG)
-
-
+handler = get_handler(retrieve=CourseHandlerCFG)

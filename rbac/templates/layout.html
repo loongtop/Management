@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Language training center</title>
+	<title>CLG</title>
 	<link rel="shortcut icon" href="{% static 'imgs/luffy-study-logo.png' %} ">
 	<link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css' %} "/>
 	<link rel="stylesheet" href="{% static 'plugins/font-awesome/css/font-awesome.css' %} "/>
@@ -68,21 +68,18 @@
 	<div class="nav">
 		<div class="logo-area left ">
 			<a href="#">
-				<img class="logo" src="{% static 'imgs/logo.png' %}">
-				<span style="font-size: 18px;">Language</span>
+				<img class="logo" src="{% static 'imgs/logo.svg' %}">
+				<span style="font-size: 18px;">Training Centre </span>
 			</a>
 		</div>
 
 		<div class="left-menu left">
-			<a class="menu-item">User Info</a>
-			<a class="menu-item">User Info</a>
-			<a class="menu-item">Docs</a>
+			<a class="menu-item">Management</a>
 			<div class="menu-item">
-				<span>Instructions</span>
+				<span>Doc</span>
 				<i class="fa fa-caret-down" aria-hidden="true"></i>
 				<div class="more-info">
-					<a href="#" class="more-item">Menu1</a>
-					<a href="#" class="more-item">Menu2</a>
+					<a href="#" class="more-item">Menu</a>
 				</div>
 			</div>
 		</div>
@@ -91,17 +88,17 @@
 
 			<div class="user-info right">
 				<a href="#" class="avatar">
-					<img class="img-circle" src="{% static 'imgs/login.png' %}">
+					<img class="img-circle" src="{% static 'imgs/default.png' %}">
 				</a>
 
 				<div class="more-info">
-					<a href="#" class="more-item">My Info</a>
-					<a href="#" class="more-item">Logout</a>
+					<a href="#" class="more-item">Information</a>
+					<a href="/logout/" class="more-item">Logout</a>
 				</div>
 			</div>
 
 			<a class="user-menu right">
-				message
+				Message
 				<i class="fa fa-commenting-o" aria-hidden="true"></i>
 				<span class="badge bg-success">2</span>
 			</a>

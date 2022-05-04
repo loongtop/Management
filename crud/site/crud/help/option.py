@@ -37,7 +37,8 @@ class Option(object):
         if isinstance(field_object, ForeignKey) or isinstance(field_object, ManyToManyField):
             # FK and M2M should get the data in their associated tables: QuerySet
             db_condition = self.get_db_condition(request, *args, **kwargs)
-            return SearchGroupRow(title, field_object.remote_field.model.objects.filter(**db_condition), self, request.GET)
+            return SearchGroupRow(title, field_object.remote_field.model.objects.filter(**db_condition), self,
+                                  request.GET)
         else:
             # Get data in choice: tuple
             self.is_choice = True

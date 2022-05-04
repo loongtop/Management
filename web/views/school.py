@@ -4,11 +4,9 @@ from crud import (get_site, get_handler,
 
 
 class SchoolConfig(Retrieve):
-    display_list = [func.detail, 'title', func.update_delete, func.checkbox]
+    display_list = [func.detail, 'title', func.update_delete]
 
     # pass
 
 
-handler = get_handler(read=SchoolConfig)
-
-
+handler = get_handler(retrieve=SchoolConfig)

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import re_path
 from django import forms
-
+from django.core.exceptions import ValidationError
 
 from crud.site.utils.mark_safe import mark_safe
 from crud import func, StyleModelForm
@@ -45,7 +45,7 @@ class EmployeeCFG(Retrieve):
     def extra_urls(self):
         patterns = [re_path(r'reset/password/(?P<pk>\d+)/$',
                             self._wrapper(self.reset_password_view),
-                            name=self._get_full_name('reset_pwd')),]
+                            name=self._get_full_name('reset_pwd')), ]
         return patterns
 
 
@@ -66,5 +66,4 @@ class ResetPasswordForm(StyleModelForm):
         return self.cleaned_data
 
 
-handler = get_handler(read=EmployeeCFG)
-
+handler = get_handler(retrieve=EmployeeCFG)

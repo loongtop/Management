@@ -6,6 +6,4 @@ class ClassConfig(Retrieve):
     pass
 
 
-handler = get_handler(read=ClassConfig)
-
-
+handler = get_handler(retrieve=ClassConfig)

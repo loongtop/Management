@@ -2,6 +2,7 @@ from django.db import models
 
 from rbac.models import User
 
+
 # Create your models here.
 
 
@@ -9,7 +10,7 @@ class Employee(User):
     """
     the table of the Employee
     """
-    nickname = models.CharField(verbose_name='Name', max_length=32)
+    nickname = models.CharField(verbose_name='Nickname', max_length=32)
     phone = models.CharField(verbose_name='Phone', max_length=32)
     GENDER_CHOICES = ((1, 'male'), (2, 'female'))
     gender = models.SmallIntegerField(verbose_name='Gender', choices=GENDER_CHOICES, default=1)
@@ -152,7 +153,8 @@ class PointsRecord(models.Model):
     """
     student = models.ForeignKey(verbose_name='Student', to='Student', on_delete=models.CASCADE)
     content = models.TextField(verbose_name='Reason')
-    score = models.IntegerField(verbose_name='Score', help_text='Disciplinary deduction points, good performance bonus points')
+    score = models.IntegerField(verbose_name='Score',
+                                help_text='Disciplinary deduction points, good performance bonus points')
     user = models.ForeignKey(verbose_name='Executor', to='Employee', on_delete=models.CASCADE)
 
 
@@ -195,15 +197,3 @@ class PaymentRecord(models.Model):
                                      on_delete=models.CASCADE, null=True, blank=True)
 
     remark = models.TextField(verbose_name="Remark", blank=True, null=True)
-
-
-
-
-
-
-
-
-
-
-
-

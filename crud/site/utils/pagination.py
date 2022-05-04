@@ -7,6 +7,7 @@ class Pagination(object):
     """
     pagination component
     """
+
     def __init__(self, current_page, all_count, base_url, query_params, per_page=20, pager_page_count=11):
         """
          paging initialization

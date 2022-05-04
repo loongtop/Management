@@ -3,10 +3,7 @@ from crud import (get_site, get_handler,
 
 
 class StudentConfig(Retrieve):
-    def show(self):
-        print
+    pass
 
 
-handler = get_handler(read=StudentConfig)
-
-
+handler = get_handler(retrieve=StudentConfig)

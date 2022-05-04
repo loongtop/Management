@@ -7,6 +7,4 @@ class DepartmentCFG(Retrieve):
     display_list = [func.detail, 'title', func.update_delete]
 
 
-handler = get_handler(read=DepartmentCFG)
-
-
+handler = get_handler(retrieve=DepartmentCFG)

@@ -1,5 +1,3 @@
-
-
 class SearchGroupRow(object):
     def __init__(self, title, queryset_or_tuple, option, query_dict):
         """

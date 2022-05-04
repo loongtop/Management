@@ -29,12 +29,6 @@ class Create(Handler):
             return response or redirect(self.reverse_list_url(*args, **kwargs))
         return render(request, self.create_template or 'crud/change.html', {'form': form})
 
-
-
-
     @property
     def _get_urls(self):
         return re_path(f'{self.cls_name}/$', self._wrapper(self.create), name=self._get_full_name(self.cls_name))
-
-
-

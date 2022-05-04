@@ -10,6 +10,7 @@ class Site(object):
     """
      class for deriving class for CRUD
     """
+
     def __init__(self, name: name_tuple):
         self.name = name
 
@@ -36,6 +37,7 @@ class CRUDSite(Site):
     """
     class for create operation CURD and Urls
     """
+
     def __init__(self, name: name_tuple = name_tuple('CRUD', 'CRUD')):
         super(CRUDSite, self).__init__(name)
 
@@ -91,4 +93,3 @@ class CRUDSite(Site):
         """
         # return self._get_urls, self.app_name, self.namespace
         return self._get_urls, self.name.app_name, self.name.namespace
-

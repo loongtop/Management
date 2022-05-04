@@ -4,7 +4,7 @@ import itertools
 
 from django.db.models import Model
 from django.urls import reverse
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 
 from .help.namedtuple import name_tuple
 from .help.stylemodelform import StyleModelForm
@@ -12,7 +12,7 @@ from .help.stylemodelform import StyleModelForm
 
 class Handler(object):
     """The base class for deriving """
-    cls_name = {'create': 'create', 'read': 'read', 'update': 'update',
+    cls_name = {'create': 'create', 'retrieve': 'retrieve', 'update': 'update',
                 'delete': 'delete', 'detail': 'detail'}
 
     def __init__(self, model: Model, name: name_tuple, prev=None):
@@ -40,7 +40,7 @@ class Handler(object):
 
     def reverse_list_url(self, *args, **kwargs):
         """generate a return address for the operation """
-        reverse_name = self.get_reverse_name('read')
+        reverse_name = self.get_reverse_name('retrieve')
         base_url = reverse(reverse_name, args=args, kwargs=kwargs)
 
         if param := self.request.GET.get('_filter'):
@@ -71,6 +71,7 @@ class Handler(object):
         def inner(request, *args, **kwargs):
             self.request = request
             return function(self.request, *args, **kwargs)
+
         return inner
 
     def _get_full_name(self, operation_name):
@@ -114,4 +115,3 @@ class Handler(object):
         lst = [self._get_urls]
         lst.extend(self.extra_urls)
         return lst
-

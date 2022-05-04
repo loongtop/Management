@@ -6,6 +6,4 @@ class CustomerConfig(Retrieve):
     pass
 
 
-handler = get_handler(read=CustomerConfig)
-
-
+handler = get_handler(retrieve=CustomerConfig)

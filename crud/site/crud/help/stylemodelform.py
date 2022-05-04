@@ -5,6 +5,7 @@ class StyleModelForm(forms.ModelForm):
     """
     set up the style of the data displaying
     """
+
     def __init__(self, *args, **kwargs):
         super(StyleModelForm, self).__init__(*args, **kwargs)
         # add styles to ModelForm generated fields

@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 
 
@@ -34,14 +35,15 @@ class Permission(models.Model):
     alias = models.CharField(verbose_name='Alias', max_length=64, unique=True)
     url = models.CharField(verbose_name='URL with RE', max_length=128)
     parent_id = models.ForeignKey(verbose_name='Parent ID', to='Permission', max_length=32, on_delete=models.CASCADE,
-                                  null=True, blank=True, related_name='parents', help_text='non-menu permissions and menu permissions')
+                                  null=True, blank=True, related_name='parents',
+                                  help_text='non-menu permissions and menu permissions')
     menu = models.ForeignKey(verbose_name='To Menu', to='Menu', null=True, blank=True, on_delete=models.CASCADE,
                              help_text='null means not a menu; non-null means it is a secondary menu')
 
     def __str__(self):
         return self.title
 
-    
+
 class Menu(models.Model):
     """
     Menu

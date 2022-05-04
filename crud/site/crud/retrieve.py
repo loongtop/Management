@@ -13,6 +13,7 @@ from .help.function import func
 from crud.site.utils.mark_safe import mark_safe
 
 from collections import namedtuple
+
 display = namedtuple('help', 'head, data, btn, pager, search_list, search_value, action_dict, search_group_row_list')
 
 
@@ -20,7 +21,8 @@ class Retrieve(Handler):
     """
     read
     """
-    cls_name = 'read'
+    cls_name = 'retrieve'
+
     head_list = []
     order_list = []
     display_list = []
@@ -187,4 +189,3 @@ class Retrieve(Handler):
     @property
     def _get_urls(self):
         return re_path(f'{self.cls_name}/$', self._wrapper(self.retrieve), name=self._get_full_name(self.cls_name))
-

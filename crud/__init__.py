@@ -11,7 +11,7 @@ def get_site():
     return CRUDSite()
 
 
-def get_handler(read=Retrieve, create=Create, delete=Delete, detail=Detail, update=Update):
-    handler = {'read': read,  'create': create, 'delete': delete,
+def get_handler(retrieve=Retrieve, create=Create, delete=Delete, detail=Detail, update=Update):
+    handler = {'retrieve': retrieve, 'create': create, 'delete': delete,
                'detail': detail, 'update': update}
     return handler

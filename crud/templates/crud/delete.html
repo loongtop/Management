@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="luffy-container">
-        <div class="alert alert-danger" role="alert">
-            <form method="post">
-                {% csrf_token %}
-                <p style="font-size: 13px;"><i class="fa fa-warning" aria-hidden="true"></i>It cannot be recovered, are you sure you want to delete it?</p>
+<div class="luffy-container">
+	<div class="alert alert-danger" role="alert">
+		<form method="post">
+			{% csrf_token %}
+			<p style="font-size: 13px;"><i class="fa fa-warning" aria-hidden="true"></i>It cannot be recovered, are you
+				sure you want to delete it?</p>
 
-                <div style="margin-top: 20px;">
-                    <a href="{{ cancel }}" class="btn btn-default btn-sm">Cancel</a>
+			<div style="margin-top: 20px;">
+				<a href="{{ cancel }}" class="btn btn-default btn-sm">Cancel</a>
 
-                    <input type="submit" class="btn btn-danger btn-sm" value="Confirm">
-                </div>
-            </form>
-        </div>
-    </div>
+				<input type="submit" class="btn btn-danger btn-sm" value="Confirm">
+			</div>
+		</form>
+	</div>
+</div>
 
 {% endblock %}
