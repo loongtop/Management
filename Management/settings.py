@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'web',
+    'rbac',
     'crud',
+    'web',
+
 ]
 
 MIDDLEWARE = [
@@ -124,3 +126,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# ####################### RBAC settings #################
+RBAC_USER_MODEL_CLASS = "web.models.Employee"

@@ -1,9 +1,11 @@
 from django.db import models
 
+from rbac.models import User
+
 # Create your models here.
 
 
-class Employee(models.Model):
+class Employee(User):
     """
     the table of the Employee
     """

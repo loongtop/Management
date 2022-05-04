@@ -16,7 +16,7 @@ from collections import namedtuple
 display = namedtuple('help', 'head, data, btn, pager, search_list, search_value, action_dict, search_group_row_list')
 
 
-class Read(Handler):
+class Retrieve(Handler):
     """
     read
     """
@@ -30,7 +30,7 @@ class Read(Handler):
     per_page_count = 4
     has_create_btn = True
 
-    def read(self, request: WSGIRequest, *args, **kwargs):
+    def retrieve(self, request: WSGIRequest, *args, **kwargs):
         """
         read view
         """
@@ -186,5 +186,5 @@ class Read(Handler):
 
     @property
     def _get_urls(self):
-        return re_path(f'{self.cls_name}/$', self._wrapper(self.read), name=self._get_full_name(self.cls_name))
+        return re_path(f'{self.cls_name}/$', self._wrapper(self.retrieve), name=self._get_full_name(self.cls_name))
 

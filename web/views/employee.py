@@ -7,10 +7,10 @@ from crud.site.utils.mark_safe import mark_safe
 from crud import func, StyleModelForm
 from crud.site.crud.help.option import Option
 from crud import (get_site, get_handler,
-                  Create, Read, Update, Delete, Detail)
+                  Create, Retrieve, Update, Delete, Detail)
 
 
-class EmployeeCFG(Read):
+class EmployeeCFG(Retrieve):
     """EmployeeCFG"""
     display_list = [func.detail, 'nickname', 'gender', 'phone', 'department', func.update_delete]
 

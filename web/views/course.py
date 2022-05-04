@@ -1,9 +1,9 @@
 from crud import (get_site, get_handler,
-                  Create, Read, Update, Delete, Detail,
+                  Create, Retrieve, Update, Delete, Detail,
                   func)
 
 
-class CourseHandlerCFG(Read):
+class CourseHandlerCFG(Retrieve):
     display_list = [func.detail, 'name']
     # pass
 

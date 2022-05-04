@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
+
 from web.crudConfig import urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path('', include(urls(namespace='Web')))
+    re_path(r'^rbac/', include('rbac.urls', namespace='rbac')),
+    re_path(r'^web/',  include(urls(namespace='web')))
 ]

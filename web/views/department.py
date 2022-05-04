@@ -1,9 +1,9 @@
 from crud import (get_site, get_handler,
-                  Create, Read, Update, Delete, Detail,
+                  Create, Retrieve, Update, Delete, Detail,
                   func)
 
 
-class DepartmentCFG(Read):
+class DepartmentCFG(Retrieve):
     display_list = [func.detail, 'title', func.update_delete]
 
 

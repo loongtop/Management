@@ -1,8 +1,8 @@
 from crud import (get_site, get_handler,
-                  Create, Read, Update, Delete, Detail)
+                  Create, Retrieve, Update, Delete, Detail)
 
 
-class ClassConfig(Read):
+class ClassConfig(Retrieve):
     pass
 
 

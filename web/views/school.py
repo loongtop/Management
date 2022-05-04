@@ -1,9 +1,9 @@
 from crud import (get_site, get_handler,
-                  Create, Read, Update, Delete, Detail,
+                  Create, Retrieve, Update, Delete, Detail,
                   func)
 
 
-class SchoolConfig(Read):
+class SchoolConfig(Retrieve):
     display_list = [func.detail, 'title', func.update_delete, func.checkbox]
 
     # pass
