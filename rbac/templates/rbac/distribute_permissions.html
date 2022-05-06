@@ -91,6 +91,7 @@
             margin-right: 8px;
         }
 
+
 </style>
 
 {% endblock %}
@@ -104,7 +105,7 @@
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
 			<div class="panel-heading">
-				<i class="fa fa-book" aria-hidden="true"></i> 用户信息
+				<i class="fa fa-book" aria-hidden="true"></i> User Info
 			</div>
 			<div class="panel-body">
 				<ul>
@@ -127,25 +128,25 @@
 			<div class="panel panel-default">
 				<!-- Default panel contents -->
 				<div class="panel-heading">
-					<i class="fa fa-gavel" aria-hidden="true"></i> 角色信息
+					<i class="fa fa-gavel" aria-hidden="true"></i> Role
 					{% if user_id %}
 					<button
 							class="right btn btn-success btn-xs"
 							style="padding: 2px 8px;margin: -3px;">
 						<i class="fa fa-save" aria-hidden="true"></i>
-						保存
+						Save
 					</button>
 					{% endif %}
 				</div>
 				<div class="panel-body" style="color: #d4d4d4;padding:10px  5px;">
-					提示：点击用户后才能为其分配角色
+					Tip: You can't assign a role until you click on a user
 				</div>
 				<!-- Table -->
 				<table class="table">
 					<thead>
 					<tr>
-						<th>角色</th>
-						<th>选项</th>
+						<th>Role</th>
+						<th>Options</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -177,19 +178,19 @@
 			<input type="hidden" name="type" value="permission">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<i class="fa fa-gavel" aria-hidden="true"></i> 权限分配
+					<i class="fa fa-gavel" aria-hidden="true"></i> Permission Distrabution
 
 					{% if role_id %}
 					<button href="#"
 					        class="right btn btn-success btn-xs"
 					        style="padding: 2px 8px;margin: -3px;">
 						<i class="fa fa-save" aria-hidden="true"></i>
-						保存
+						Save
 					</button>
 					{% endif %}
 				</div>
 				<div class="panel-body" style="color: #d4d4d4;padding:10px  5px;">
-					提示：点击角色后才能为其分配权限
+					Tip: Click a role to assign permissions to it
 				</div>
 				<table class="table">
 					<tbody>
@@ -201,7 +202,7 @@
 
 							<div class="select-help">
 								<div class="check-all">
-									<label for="check_all_{{ item.id }}">全选</label>
+									<label for="check_all_{{ item.id }}">Select All</label>
 									<input id="check_all_{{ item.id }}" type="checkbox">
 								</div>
 							</div>
@@ -216,7 +217,7 @@
 								       {% if node.id in user_has_permissions_dict %}checked{% endif %}
 								       value="{{ node.id }}" type="checkbox">
 
-								<label for="permission_{{ node.id }}">{{ node.title }}（菜单）</label>
+								<label for="permission_{{ node.id }}">{{ node.title }}（Menu）</label>
 							</div>
 							<div class="children">
 								{% for child in node.children %}
@@ -237,8 +238,6 @@
 					{% endfor %}
 					</tbody>
 				</table>
-
-
 			</div>
 		</form>
 	</div>
@@ -253,7 +252,5 @@
                 $(this).parents('.root').next().find(':checkbox').prop('checked',$(this).prop('checked'));
             })
         })
-    
-
 </script>
 {% endblock %}

@@ -8,26 +8,24 @@
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
 			<div class="panel-heading">
-				<i class="fa fa-th-list" aria-hidden="true"></i> 待新建权限列表
+				<i class="fa fa-th-list" aria-hidden="true"></i> List of permissions to be created
 				<button href="#" class="right btn btn-primary btn-xs"
 				        style="padding: 2px 8px;margin: -3px;">
 					<i class="fa fa-save" aria-hidden="true"></i>
-					新建
+					Create
 				</button>
-
-
 			</div>
 
 			<!-- Table -->
 			<table class="table">
 				<thead>
 				<tr>
-					<th>序号</th>
-					<th>名称</th>
+					<th>Number</th>
+					<th>Name</th>
 					<th>URL</th>
-					<th>别名</th>
-					<th>菜单</th>
-					<th>父权限</th>
+					<th>Alias</th>
+					<th>Menu</th>
+					<th>Parent Permission</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -48,18 +46,18 @@
 	<div class="panel panel-default">
 		<!-- Default panel contents -->
 		<div class="panel-heading">
-			<i class="fa fa-th-list" aria-hidden="true"></i> 待删除权限列表
+			<i class="fa fa-th-list" aria-hidden="true"></i> List of permissions to be deleted
 		</div>
 
 		<!-- Table -->
 		<table class="table">
 			<thead>
 			<tr>
-				<th>序号</th>
-				<th>名称</th>
+				<th>Number</th>
+				<th>Name</th>
 				<th>URL</th>
-				<th>别名</th>
-				<th>删除</th>
+				<th>Alias</th>
+				<th>Delete</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -68,7 +66,7 @@
 				<td>{{ forloop.counter }}</td>
 				<td>{{ row.title }}</td>
 				<td>{{ row.url }}</td>
-				<td>{{ row.name }}</td>
+				<td>{{ row.alias }}</td>
 				<td>
 					<a style="color: #d9534f;" href="{% url 'rbac:multi_permissions_del' pk=row.id %}">
 						<i class="fa fa-trash-o"></i>
@@ -87,11 +85,11 @@
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
 			<div class="panel-heading">
-				<i class="fa fa-th-list" aria-hidden="true"></i> 待更新权限列表
+				<i class="fa fa-th-list" aria-hidden="true"></i> List of permissions to be updated
 				<button href="#" class="right btn btn-primary btn-xs"
 				        style="padding: 2px 8px;margin: -3px;">
 					<i class="fa fa-save" aria-hidden="true"></i>
-					保存
+					Save
 				</button>
 
 
@@ -101,12 +99,12 @@
 			<table class="table">
 				<thead>
 				<tr>
-					<th>序号</th>
-					<th>名称</th>
+					<th>Number</th>
+					<th>Name</th>
 					<th>URL</th>
-					<th>别名</th>
-					<th>菜单</th>
-					<th>父权限</th>
+					<th>Alias</th>
+					<th>Menu</th>
+					<th>Parent Permission</th>
 				</tr>
 				</thead>
 				<tbody>

@@ -7,7 +7,7 @@ from django.db import models
 class Role(models.Model):
     """Role"""
     title = models.CharField(verbose_name='title', max_length=64)
-    permission = models.ForeignKey(verbose_name='permission', to='Permission', max_length=32, on_delete=models.CASCADE)
+    permission = models.ManyToManyField(verbose_name='permission', to='Permission', max_length=32)
 
     def __str__(self):
         return self.title

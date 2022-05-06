@@ -5,13 +5,13 @@
 	<div class="alert alert-danger" role="alert">
 		<form method="post">
 			{% csrf_token %}
-			<p style="font-size: 13px;"><i class="fa fa-warning" aria-hidden="true"></i> 删除后将不可恢复，请确定是否删除？</p>
+			<p style="font-size: 13px;"><i class="fa fa-warning" aria-hidden="true"></i>After deletion, it cannot be recovered. Are you sure you want to delete it?</p>
 
 
 			<div style="margin-top: 20px;">
-				<a href="{{ cancel }}" class="btn btn-default btn-sm">取消</a>
+				<a href="{{ cancel }}" class="btn btn-default btn-sm">Cancel</a>
 
-				<input type="submit" class="btn btn-danger btn-sm" value="确 认">
+				<input type="submit" class="btn btn-danger btn-sm" value="Confirm">
 			</div>
 		</form>
 	</div>

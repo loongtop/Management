@@ -5,8 +5,8 @@
 <div class="luffy-container">
 	<div class="btn-group" style="margin: 5px 0">
 
-		<a class="btn btn-default" href="{% url 'rbac:role_add' %}">
-			<i class="fa fa-plus-square" aria-hidden="true"></i> 添加角色
+		<a class="btn btn-default" href="{% url 'rbac:role_create' %}">
+			<i class="fa fa-plus-square" aria-hidden="true"></i> Create
 		</a>
 
 	</div>
@@ -14,8 +14,8 @@
 		<thead>
 		<tr>
 			<th>ID</th>
-			<th>名称</th>
-			<th>选项</th>
+			<th>Name</th>
+			<th>Choice</th>
 
 		</tr>
 		</thead>
@@ -26,7 +26,7 @@
 			<td>{{ row.title }}</td>
 			<td>
 
-				<a style="color: #333333;" href="{% url 'rbac:role_edit' pk=row.id %}">
+				<a style="color: #333333;" href="{% url 'rbac:role_update' pk=row.id %}">
 					<i class="fa fa-edit" aria-hidden="true"></i></a>
 
 

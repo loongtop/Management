@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'rbac.apps.RbacConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rbac',
     'crud',
     'web',
 
@@ -52,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'rbac.middlewares.rbac.RbacMiddleware',
 ]
 
 ROOT_URLCONF = 'Management.urls'
@@ -123,4 +125,24 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ####################### RBAC settings #################
-RBAC_USER_MODEL_CLASS = "web.models.Employee"
+RBAC_USER_MODEL_CLASS = 'web.models.Employee'
+MENU_SESSION_KEY = 'permission_menu_key'
+PERMISSION_SESSION_KEY = 'permission_url_list_key'
+
+AUTO_DISCOVER_EXCLUDE = [
+    '/admin/.*',
+    '/signin/',
+    '/logout/',
+    '/index/',
+]
+
+RBAC_WHITE_LIST = [
+    '/signin/',
+    '/admin/.*'
+]
+
+RBAC_NON_PERMISSION_LIST = [
+    '/index/',
+    '/logout/',
+]
+
