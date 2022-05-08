@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'rbac.middlewares.rbac.RbacMiddleware',
+    # 'rbac.middlewares.rbac.RbacMiddleware',
 ]
 
 ROOT_URLCONF = 'Management.urls'

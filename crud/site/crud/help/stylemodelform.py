@@ -10,4 +10,4 @@ class StyleModelForm(forms.ModelForm):
         super(StyleModelForm, self).__init__(*args, **kwargs)
         # add styles to ModelForm generated fields
         for name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs.update({"class": "form-control"})

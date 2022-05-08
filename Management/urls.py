@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^rbac/', include('rbac.urls', namespace='rbac')),
     re_path('', include(urls(namespace='web'))),
-    re_path('', include('web.urls', namespace='signin')),
+    re_path('', include('web.urls', namespace='sigin'))
 ]

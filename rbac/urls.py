@@ -29,8 +29,8 @@ urlpatterns = [
     re_path(r'^permission/update/(?P<pk>\d+)/$', permission.permission_update, name='permission_update'),
     re_path(r'^permission/del/(?P<pk>\d+)/$', permission.permission_del, name='permission_del'),
 
-    re_path(r'^multi/permissions/$', menu.multi_permissions, name='multi_permissions'),
-    re_path(r'^multi/permissions/del/(?P<pk>\d+)/$', menu.multi_permissions_del, name='multi_permissions_del'),
+    re_path(r'^multi/permissions/$', permission.multi_permissions, name='multi_permissions'),
+    re_path(r'^multi/permissions/del/(?P<pk>\d+)/$', permission.multi_permissions_del, name='multi_permissions_del'),
 
-    re_path(r'^distribute/permissions/$', menu.distribute_permissions, name='distribute_permissions'),
+    re_path(r'^distribute/permissions/$', permission.distribute_permissions, name='distribute_permissions'),
 ]

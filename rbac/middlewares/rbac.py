@@ -18,14 +18,17 @@ class RbacMiddleware(MiddlewareMixin):
 
         # For whitelisted URLs, no verification is required
         for url in settings.RBAC_WHITE_LIST:
-            if re.match(url, current_url):
+            re_url = rf'^{url}$'
+            if re.match(re_url, current_url):
                 return None
 
-        # there is no need PERMISSION for Browsing home and registration pages
+        # navigation bar
         url_record = [{'title': 'Home', 'url': '#'}]
 
+        # there is no need PERMISSION for Browsing home and registration pages
         for url in settings.RBAC_NON_PERMISSION_LIST:
-            if re.match(url, current_url):
+            re_url = rf'^{url}$'
+            if re.match(re_url, current_url):
                 request.current_selected_permission = 0
                 request.breadcrumb = url_record
                 return None
@@ -34,24 +37,25 @@ class RbacMiddleware(MiddlewareMixin):
         if not (permission_dict := request.session.get(settings.PERMISSION_SESSION_KEY)):
             return HttpResponse('The user permission information has not been obtained, please log in!')
 
-        def _help(request, url_record):
-            # Define help（） functions to help programs understand and read
-            request.current_selected_permission = item['pid'] or item['id']
-            if not item['pid']:
-                url_record.extend([{'title': item['title'], 'url': item['url'], 'class': 'active'}])
-            else:
-                url_record.extend([
-                    {'title': item['p_title'], 'url': item['p_url']},
-                    {'title': item['title'], 'url': item['url'], 'class': 'active'},
-                ])
-
-            request.breadcrumb = url_record
-        # end of _help（） functions
-
         # permission information match
         for item in permission_dict.values():
-            if re.match(rf'^{item.get("url")}$', current_url):
-                _help(request, url_record)
+            url = item.get('url')
+            if re.match(rf'^{url}$', current_url):
+                self._help_navigation(request, url_record, item)
                 return None
 
         return HttpResponse('No authorization!')
+
+    def _help_navigation(self, request, url_record, item):
+        # Define help（） functions to help programs understand and read
+        request.current_selected_permission = item['parent_id'] or item['id']
+        if not item['parent_id']:
+            url_record.extend([{'title': item['title'], 'url': item['url'], 'class': 'active'}])
+        else:
+            url_record.extend([
+                {'title': item['parent_title'], 'url': item['parent_url']},
+                {'title': item['title'], 'url': item['url'], 'class': 'active'},
+            ])
+
+        request.breadcrumb = url_record
+

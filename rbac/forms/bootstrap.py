@@ -7,4 +7,4 @@ class BootStrapModelForm(forms.ModelForm):
         super(BootStrapModelForm, self).__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs.update({"class": "form-control"})

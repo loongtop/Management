@@ -1,21 +1,21 @@
 import re
 from collections import OrderedDict
 
-from django.urls import reverse
+from django.urls import reverse_lazy
 from django.http import QueryDict
 from django.utils.module_loading import import_string
 from django.conf import settings
-from django.urls import URLPattern, URLResolver
+from django.urls.resolvers import RegexPattern, URLResolver
 
 
 def url_encode(request, name, *args, **kwargs):
     """
-    生成带有原搜索条件的URL（替代了模板中的url）
+    Generate a URL with the original search criteria (replaces the url in the template)
     :param request:
     :param name:
     :return:
     """
-    url_with_encode = reverse(name, args=args, kwargs=kwargs)
+    url_with_encode = reverse_lazy(name, args=args, kwargs=kwargs)
 
     # if there are parameters
     if request.GET:
@@ -39,7 +39,7 @@ def url_params(request, name, *args, **kwargs):
    :param kwargs:
    :return:
    """
-    url_with_params = reverse(name, args=args, kwargs=kwargs)
+    url_with_params = reverse_lazy(name, args=args, kwargs=kwargs)
 
     if origin_params := request.GET.get('_filter'):
         url_with_params = f"{url_with_params}?{origin_params}"
@@ -47,16 +47,18 @@ def url_params(request, name, *args, **kwargs):
     return url_with_params
 
 
-def get_all_url_dict():
+def get_all_url():
     """
     Get all URLs in the project (must have name alias)
     :return:
     """
     url_ordered_dict = OrderedDict()
 
-    md = import_string(settings.ROOT_URLCONF)
+    urls = import_string(settings.ROOT_URLCONF)
+
+    print(urls)
     # Recursively get all routes
-    _recursion_urls(None, '/', md.urlpatterns, url_ordered_dict)
+    _recursion_urls(None, '/', urls.urlpatterns, url_ordered_dict)
 
     return url_ordered_dict
 
@@ -72,7 +74,7 @@ def _recursion_urls(pre_namespace, pre_url, urlpatterns, url_ordered_dict):
     """
     for item in urlpatterns:
         # Non-route distribution, add routes to url_ordered_dict
-        if isinstance(item, URLPattern):
+        if isinstance(item, RegexPattern):
             if not item.name:
                 continue
 
@@ -81,7 +83,7 @@ def _recursion_urls(pre_namespace, pre_url, urlpatterns, url_ordered_dict):
             else:
                 name = item.name
             # /rbac/user/edit/(?P<pk>\d+)/
-            url = pre_url + str(item)
+            url = pre_url + item._regex
             url = url.replace('^', '').replace('$', '')
 
             if _check_url_exclude(url):
@@ -89,7 +91,8 @@ def _recursion_urls(pre_namespace, pre_url, urlpatterns, url_ordered_dict):
 
             url_ordered_dict[name] = {'name': name, 'url': url}
 
-        elif isinstance(item, URLResolver):  # 路由分发，递归操作
+        # route distribution, recursive operation
+        elif isinstance(item, URLResolver):
 
             if pre_namespace:
                 if item.namespace:

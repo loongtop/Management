@@ -16,7 +16,7 @@ class UserModelForm(forms.ModelForm):
         super(UserModelForm, self).__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs.update({"class": "form-control"})
 
     def clean_confirm_password(self):
         """
@@ -41,7 +41,7 @@ class ResetPasswordUserModelForm(forms.ModelForm):
     def __init__(self, *arg, **kwargs):
         super(ResetPasswordUserModelForm, self).__init__(*arg, **kwargs)
         for name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs.update({"class": "form-control"})
 
     def clean_confirm_password(self):
         """check the password"""
@@ -62,4 +62,4 @@ class UpdateUserModelForm(forms.ModelForm):
         super(UpdateUserModelForm, self).__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs.update({"class": "form-control"})

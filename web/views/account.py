@@ -25,6 +25,10 @@ def sign_in(request: WSGIRequest):
 
     init_permission(request, user)
 
+    # #################
+    # add your own code here, For example, verification code verification
+    # #################
+
     return redirect('/index/')
 
 
@@ -37,6 +41,7 @@ def logout(request):
     request.session.delete()
 
     return redirect('/sign_in/')
+
 
 def index(request):
     return render(request, 'index.html',)
