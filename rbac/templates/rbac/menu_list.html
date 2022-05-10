@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'base.html' %}
 {% load rbac %}
 {% block css %}
 <style>
@@ -13,11 +13,6 @@
         .panel-body {
             font-size: 12px;
         }
-
-
-
-
-
 
 
 
@@ -61,7 +56,7 @@
 							<i class="fa fa-edit" aria-hidden="true"></i></a>
 
 
-						<a style="color: #d9534f;" href="{% reverse_url request 'rbac:menu_del' pk=row.id %}"><i
+						<a style="color: #d9534f;" href="{% reverse_url request 'rbac:menu_delete' pk=row.id %}"><i
 								class="fa fa-trash-o"></i></a>
 
 					</td>
@@ -71,13 +66,15 @@
 			</table>
 		</div>
 	</div>
+
 	<div class="col-md-4">
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
 			<div class="panel-heading">
 				<i class="fa fa-gavel" aria-hidden="true"></i> Sub Menu
+				{{menu_id}}
 				{% if menu_id %}
-				<a href="{% reverse_url request 'rbac:second_menu_create' menu_id=menu_id %}"
+				<a href="{% reverse_url request 'rbac:menu_subcreate' menu_id=menu_id%}"
 				   class="right btn btn-success btn-xs"
 				   style="padding: 2px 8px;margin: -3px;">
 					<i class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -96,24 +93,24 @@
 				</thead>
 				<tbody>
 				{% for row in second_menus %}
-				<tr class="{% if row.id|safe == second_menu_id %}active {% endif %}">
+				<tr class="{% if row.id|safe == sub_menu_id %}active {% endif %}">
 					<td rowspan="2">
 						<a href="?mid={{ menu_id }}&sid={{ row.id }}">{{ row.title }}</a>
 					</td>
 					<td>{{ row.name }}</td>
 					<td>
 						<a style="color: #333333;"
-						   href="{% reverse_url request 'rbac:second_menu_update' pk=row.id %}">
+						   href="{% reverse_url request 'rbac:menu_subupdate' pk=row.id %}">
 							<i class="fa fa-edit" aria-hidden="true"></i></a>
 
 
 						<a style="color: #d9534f;"
-						   href="{% reverse_url request 'rbac:second_menu_del' pk=row.id %}"><i
+						   href="{% reverse_url request 'rbac:menu_subdelete' pk=row.id %}"><i
 								class="fa fa-trash-o"></i></a>
 
 					</td>
 				</tr>
-				<tr class="{% if row.id|safe == second_menu_id %}active {% endif %}">
+				<tr class="{% if row.id|safe == sub_menu_id %} active {% endif %}">
 					<td colspan="2" style="border-top: 0">{{ row.url }}</td>
 				</tr>
 				{% endfor %}
@@ -127,15 +124,15 @@
 			<div class="panel-heading">
 				<i class="fa fa-gavel" aria-hidden="true"></i> Permission
 				<div class="btn-group right">
-					{% if second_menu_id %}
-					<a href="{% reverse_url request 'rbac:permission_create' second_menu_id=second_menu_id %}"
+					{% if sub_menu_id %}
+					<a href="{% reverse_url request 'rbac:permission_create' sub_menu_id=sub_menu_id %}"
 					   class="right btn btn-success btn-xs"
 					   style="padding: 2px 8px;margin: -3px;">
 						<i class="fa fa-plus-circle" aria-hidden="true"></i>
 						Create
 					</a>
 					{% endif %}
-					<a href="{% reverse_url request 'rbac:multi_permissions' %}" class="btn btn-xs btn-primary"
+					<a href="{% reverse_url request 'rbac:permission_multi' %}" class="btn btn-xs btn-primary"
 					   style="padding: 2px 8px;margin: -3px 0;">
 						<i class="fa fa-mail-forward" aria-hidden="true"></i>
 						Batch Operation
@@ -165,7 +162,7 @@
 
 
 						<a style="color: #d9534f;"
-						   href="{% reverse_url request 'rbac:permission_del' pk=row.id %}"><i
+						   href="{% reverse_url request 'rbac:permission_delete' pk=row.id %}"><i
 								class="fa fa-trash-o"></i></a>
 
 					</td>

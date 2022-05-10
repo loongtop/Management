@@ -4,11 +4,12 @@ from django.shortcuts import render, redirect
 from django.core.handlers.wsgi import WSGIRequest
 
 from .handler import Handler
+from .help import return_url
 
 
-class Detail(Handler):
+class DetailView(Handler):
     """show the detail of the selected element"""
-    cls_name = 'detail'
+    template_name = None
 
     def detail(self, request: WSGIRequest, pk, *args, **kwargs):
         """show the detail of the selected element"""
@@ -22,11 +23,12 @@ class Detail(Handler):
         modelform = self._get_modelform
         if request.method == 'GET':
             form = modelform
-            return render(request, 'crud/detail.html', {'form': form})
+            return render(request, self.template_name or 'crud/detail.html', {'form': form})
 
         return redirect(current_url)
 
-    @property
-    def _get_urls(self):
-        url = fr'{self.cls_name}/(?P<pk>\d+)/$'
-        return re_path(url, self._wrapper(self.detail), name=self._get_full_name(self.cls_name))
+
+    def set_url_tuple(self):
+        url_name = f'{self.name}{self.url_name}'
+        return return_url(url_name, self.detail, self.name)
+

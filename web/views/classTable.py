@@ -1,9 +1,16 @@
-from crud import (get_site, get_handler,
-                  Create, Retrieve, Update, Delete, Detail)
+from crud import (CRUDSite,
+                  model_handler_tuple, return_url, name_tuple,
+                  HandlerList, Handler, RetrieveView, CreateView, DeleteView, DetailView, UpdateView,
+                  func, StyleModelForm, Option,
+                  mark_safe, pagination)
 
 
-class ClassConfig(Retrieve):
+
+class ClassConfig(RetrieveView):
     pass
 
 
-handler = get_handler(retrieve=ClassConfig)
+handlerList = HandlerList(retrieve=ClassConfig)
+handler = handlerList.handler_dict
+
+

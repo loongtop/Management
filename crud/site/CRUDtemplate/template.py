@@ -7,25 +7,27 @@ from crud import (CRUDSite,
 
 class Retrieve(RetrieveView):
     display_list = [func.detail, 'title', func.update_delete]
-    # template_name = 'rbac/role_list.html'
+    template_name = '/rbac/role_list.html'
 
 
 class Create(CreateView):
-    template_name = 'rbac/change.html'
+    template_name = '/rbac/change.html'
 
 
 class Delete(DeleteView):
-    template_name = 'rbac/delete.html'
+    template_name = '/rbac/delete.html'
 
 
 class Update(UpdateView):
-    template_name = 'rbac/change.html'
+    template_name = '/rbac/change.html'
 
 
 class Detail(DetailView):
-    template_name = 'rbac/change.html'
+    template_name = '/rbac/change.html'
 
 
-handlerList = HandlerList(retrieve=Retrieve, update=Update, create=Create, delete=Delete, detail=Detail)
+
+handlerList = HandlerList(retrieve=Retrieve)
 handler = handlerList.handler_dict
+
 

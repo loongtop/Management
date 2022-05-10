@@ -1,9 +1,8 @@
 """Model for create Urls"""
 import itertools
-
 from django.urls import re_path
-from .crud.handler import Handler
-from crud.site.crud.help.namedtuple import name_tuple
+
+from .handler import Handler, name_tuple
 
 
 class Site(object):
@@ -91,5 +90,4 @@ class CRUDSite(Site):
         """
         the interface that give urls
         """
-        # return self._get_urls, self.app_name, self.namespace
         return self._get_urls, self.name.app_name, self.name.namespace

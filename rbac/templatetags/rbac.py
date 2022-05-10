@@ -66,7 +66,7 @@ def reverse_url(request, name, *args, **kwargs):
     :param name:
     :return:
     """
-    return get_url.url_params(request, name, *args, **kwargs)
+    return get_url.url_encode(request, name, *args, **kwargs)
 
 
 def _help_get_menu_in_session(request):

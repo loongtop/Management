@@ -1,26 +1,26 @@
 """The base class for deriving """
 import functools
-import itertools
 
 from django.db.models import Model
 from django.urls import reverse
+from django.urls import re_path
 from django.shortcuts import render, redirect
 
-from .help.namedtuple import name_tuple
-from .help.stylemodelform import StyleModelForm
+from .help import name_tuple, return_url, StyleModelForm
 
 
 class Handler(object):
     """The base class for deriving """
-    cls_name = {'create': 'create', 'retrieve': 'retrieve', 'update': 'update',
-                'delete': 'delete', 'detail': 'detail'}
+    template_name = ''
+    url_name = '/(?P<pk>\d+)'
 
     def __init__(self, model: Model, name: name_tuple, prev=None):
-        self.name = name
+        self.name_tuple = name
         self._model = model
         self._prev = prev
         self.request = None
         self.modelform = None
+        self.name = str.lower(self.__class__.__name__)
 
     @classmethod
     def save(cls, form):
@@ -78,18 +78,18 @@ class Handler(object):
         """
         this methods is used to get_app_model_name
         """
-        app_label = self._get_meta(self._model).app_label
+        # app_label = self._get_meta(self._model).app_label
         model_name = self._get_meta(self._model).model_name
 
         if self._prev:
-            return f'{app_label}_{model_name}_{self._prev}_{operation_name}'
-        return f'{app_label}_{model_name}_{operation_name}'
+            return f'{model_name}_{self._prev}_{operation_name}'
+        return f'{model_name}_{operation_name}'
 
     def get_reverse_name(self, operation_name):
         """
         This methods is used for get_reverse_name
         """
-        return f'{self.name.namespace}:{self._get_full_name(operation_name)}'
+        return f'{self.name_tuple.namespace}:{self._get_full_name(operation_name)}'
 
     def is_obj_exists(self, pk, message='The data does not exist, please re select!'):
         if not (obj := self._get_objects(pk).first()):
@@ -98,10 +98,12 @@ class Handler(object):
 
     @property
     def _get_urls(self):
-        """
-        you must Implement this method!
-        """
-        raise NotImplementedError('you must Implement this method!')
+        url_name, func, name = self.set_url_tuple()
+        return re_path(f'{url_name}/$', self._wrapper(func), name=self._get_full_name(name))
+
+    def set_url_tuple(self) -> return_url:
+        """You must implement the method"""
+        raise NotImplementedError('You must implement the method set_url_tuple()!')
 
     @property
     def extra_urls(self):
@@ -115,3 +117,6 @@ class Handler(object):
         lst = [self._get_urls]
         lst.extend(self.extra_urls)
         return lst
+
+
+

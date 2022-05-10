@@ -1,5 +1,6 @@
-{% extends 'layout.html' %}
+{% extends 'base.html' %}
 {% block content %}
+
 <div class="luffy-container">
 
 	<form method="post" action="?type=generate">
@@ -68,7 +69,7 @@
 				<td>{{ row.url }}</td>
 				<td>{{ row.alias }}</td>
 				<td>
-					<a style="color: #d9534f;" href="{% url 'rbac:multi_permissions_del' pk=row.id %}">
+					<a style="color: #d9534f;" href="{% url 'rbac:permission_multidelete' pk=row.id %}">
 						<i class="fa fa-trash-o"></i>
 					</a>
 				</td>

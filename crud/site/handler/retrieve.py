@@ -1,27 +1,25 @@
 """read"""
 import itertools
 from collections import defaultdict
+from collections import namedtuple
 from types import FunctionType
-from django.urls import re_path
 from django.shortcuts import render
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Q
 
 from .handler import Handler
-from crud.site.utils.pagination import Pagination
-from .help.function import func
-from crud.site.utils.mark_safe import mark_safe
+from .help import return_url, func
+from ..utils import Pagination, mark_safe
 
-from collections import namedtuple
-
-display = namedtuple('help', 'head, data, btn, pager, search_list, search_value, action_dict, search_group_row_list')
+display = namedtuple('help', 'head, data, btn, pager, search_list, '
+                             'search_value, action_dict, search_group_row_list')
 
 
-class Retrieve(Handler):
+class RetrieveView(Handler):
     """
     read
     """
-    cls_name = 'retrieve'
+    template_name = None
 
     head_list = []
     order_list = []
@@ -92,13 +90,13 @@ class Retrieve(Handler):
 
         display_front = display(head, data, btn, pager, search_list, search_value, action_dict, search_group_row_list)
 
-        return render(request, 'crud/change_list.html', {'display': display_front})
+        return render(request, self.template_name or 'crud/change_list.html', {'display': display_front})
 
     @property
     def get_display_list(self):
         """get display list"""
         if not self.display_list:
-            field0 = [self._get_meta().fields[0].name]
+            field0 = [self._get_meta().fields[0].name_tuple]
             return itertools.chain(field0, [func.checkbox])
         return itertools.chain(self.display_list, [func.checkbox])
 
@@ -186,6 +184,8 @@ class Retrieve(Handler):
                 condition[option.field] = value
         return condition
 
-    @property
-    def _get_urls(self):
-        return re_path(f'{self.cls_name}/$', self._wrapper(self.retrieve), name=self._get_full_name(self.cls_name))
+
+    def set_url_tuple(self):
+        url_name = self.name
+        return return_url(url_name, self.retrieve, url_name)
+

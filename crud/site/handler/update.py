@@ -4,14 +4,14 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from .handler import Handler
+from .help import return_url
 
 
-class Update(Handler):
+class UpdateView(Handler):
     """
     update an element
     """
-    cls_name = 'update'
-    change_template = None
+    template_name = None
 
     def update(self, request: WSGIRequest, pk, *args, **kwargs):
         """
@@ -24,7 +24,7 @@ class Update(Handler):
         modelform = self._get_modelform
         if request.method == "GET":
             form = modelform(instance=update_obj)
-            return render(request, self.change_template or 'crud/change.html', {'form': form})
+            return render(request, self.template_name or 'crud/change.html', {'form': form})
 
         form = modelform(data=request.POST, instance=update_obj)
         if form.is_valid():
@@ -32,7 +32,7 @@ class Update(Handler):
             return response or redirect(self.reverse_list_url(*args, **kwargs))
         return render(request, self.change_template or 'crud/change.html', {'form': form})
 
-    @property
-    def _get_urls(self):
-        url = fr'{self.cls_name}/(?P<pk>\d+)/$'
-        return re_path(url, self._wrapper(self.update), name=self._get_full_name(self.cls_name))
+
+    def set_url_tuple(self):
+        url_name = f'{self.name}{self.url_name}'
+        return return_url(url_name, self.update, self.name)

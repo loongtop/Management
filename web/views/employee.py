@@ -3,14 +3,14 @@ from django.urls import re_path
 from django import forms
 from django.core.exceptions import ValidationError
 
-from crud.site.utils.mark_safe import mark_safe
-from crud import func, StyleModelForm
-from crud.site.crud.help.option import Option
-from crud import (get_site, get_handler,
-                  Create, Retrieve, Update, Delete, Detail)
+from crud import (CRUDSite,
+                  model_handler_tuple, return_url, name_tuple,
+                  HandlerList, Handler, RetrieveView, CreateView, DeleteView, DetailView, UpdateView,
+                  func, StyleModelForm, Option,
+                  mark_safe, pagination)
 
 
-class EmployeeCFG(Retrieve):
+class EmployeeCFG(RetrieveView):
     """EmployeeCFG"""
     display_list = [func.detail, 'nickname', 'gender', 'phone', 'department', func.update_delete]
 
@@ -43,6 +43,7 @@ class EmployeeCFG(Retrieve):
 
     @property
     def extra_urls(self):
+
         patterns = [re_path(r'reset/password/(?P<pk>\d+)/$',
                             self._wrapper(self.reset_password_view),
                             name=self._get_full_name('reset_pwd')), ]
@@ -66,4 +67,5 @@ class ResetPasswordForm(StyleModelForm):
         return self.cleaned_data
 
 
-handler = get_handler(retrieve=EmployeeCFG)
+handlerList = HandlerList(retrieve=EmployeeCFG)
+handler = handlerList.handler_dict

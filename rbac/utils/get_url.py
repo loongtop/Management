@@ -15,15 +15,22 @@ def url_encode(request, name, *args, **kwargs):
     :param name:
     :return:
     """
-    url_with_encode = reverse_lazy(name, args=args, kwargs=kwargs)
+    basic_url = reverse_lazy(name, args=args, kwargs=kwargs)
 
     # if there are parameters
-    if request.GET:
-        query_dict = QueryDict(mutable=True)
-        query_dict['_filter'] = request.GET.urlencode()
-        url_with_encode = f"{url_with_encode}?{query_dict.urlencode()}"
+    # if request.GET:
+    #     query_dict = QueryDict(mutable=True)
+    #     query_dict['_filter'] = request.GET.urlencode()
+    #     url_with_encode = f"{url_with_encode}?{query_dict.urlencode()}"
+    #
+    # return url_with_encode
+    if not request.GET:
+        return basic_url
 
-    return url_with_encode
+    query_dict = QueryDict(mutable=True)
+    query_dict['_filter'] = request.GET.urlencode()  # mid=2&age=99
+
+    return "%s?%s" % (basic_url, query_dict.urlencode())
 
 
 def url_params(request, name, *args, **kwargs):

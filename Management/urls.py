@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 
-from web.crudConfig import urls
+from web.crudConfig import urls as web_urls
+from rbac.crudConfig import urls as rbac_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'^rbac/', include('rbac.urls', namespace='rbac')),
-    re_path('', include(urls(namespace='web'))),
-    re_path('', include('web.urls', namespace='sigin'))
+    re_path('', include(rbac_urls(namespace='rbac'))),
+    # re_path('', include(web_urls(namespace='web'))),
+    # re_path('', include('web.urls', namespace='sigin'))
 ]
